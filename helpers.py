@@ -4,11 +4,18 @@ Helper functions to check RushHour game board, find possible moves, return new b
 Numbers represent cars. car #1 is always the car that needs to escape and is always in the 3rd row.
 '''
 import numpy as np
+from copy import deepcopy
 from data_struct import Board, Car, Node, QueueFrontier
 
 def test(arr):
     board = board_from_array(arr)
     print(board)
+    board.move_car(board.cars[2], -1)
+    print('\n',board)
+    board.move_car(board.cars[4], -3)
+    print('\n',board)
+    board.move_car(board.cars[3], 3)
+    print('\n',board)
 
 # Example board:
 b0 = [
@@ -45,7 +52,12 @@ def board_from_array(array):
 
 # possible moves
 def possible_moves(board):
-    pass
+    moves = dict()
+    for car in board.cars:
+        pass
+        
+
+
 
 # movable pieces
 

@@ -5,26 +5,43 @@ class Board():
     board object which contains cars and represents a board in RushHour
     '''
     def __init__(self):
+        self.state = np.zeros([6,6])
         self.cars = []
+        self.spaces = dict()
         
     def add_car(self, car):
         self.cars.append(car)
+        self.update_board_state()
 
-    def move_car(self, car, action):
-        coords = car.coord
-        if car.orientation == 'vert':
-            coords = [(x+action, y) for x,y in coords]
-        if car.orientation == 'horiz':
-            coords = [(x,y+action) for x,y in coords]
-        car.coord = coords
-
-    def __str__(self):
-        # print function for printing array (use zeros array, then populate with coords)
+    def update_board_state(self):
         array = np.zeros([6,6]) #2d array
         for car in self.cars:
             for i,j in car.coord:
                 array[i][j] = car.name
-        return str(array)
+        self.state = array
+
+        for car in self.cars:
+            pass
+
+
+    def move_car(self, car, action):
+        coords = car.coord
+        if car.orientation == 'vert':
+            new_coords = [(x+action, y) for x,y in coords]
+        if car.orientation == 'horiz':
+            new_coords = [(x,y+action) for x,y in coords]
+
+        if all([(self.state[i][j]==0) or (self.state[i][j]==car.name) for i,j in new_coords]):
+            car.coord = new_coords
+        else:
+            raise Exception(f'Invalid move by {car.name}: space taken')
+        
+        # update board state if any car moves
+        self.update_board_state()
+
+    def __str__(self):
+        # print function for printing array (use zeros array, then populate with coords)
+        return str(self.state)
 
 
 class Car():
