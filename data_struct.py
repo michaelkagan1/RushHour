@@ -126,24 +126,26 @@ class Node():
 class QueueFrontier():
     def __init__(self):
         self.frontier = []
-        self.memo = []
+        # self.memo = []
+        self.memo = set()
 
     def isEmpty(self):
         return len(self.frontier) == 0
     
     def explored(self, array):
-        for board in self.memo:
-            if np.all(board == array):
-                return True
-        
-        return False
+        return array.tobytes() in self.memo
+        # for board in self.memo:
+        #     if np.array_equal(board, array):
+        #         return True
+        # return False
 
     # add node to frontier to be searched. Add board to persistent 'memo' list
     def enqueue(self, node):
         self.frontier.append(node)
-        self.memo.append(node.state.state)  # node state is board object, board object state is 2D-array
+        self.memo.add(node.state.state.tobytes())  # node state is board object, board object state is 2D-array. Convert to bytes before adding for optimization
 
     def dequeue(self):
         if not self.isEmpty():
             return self.frontier.pop(0)
         raise Exception('Empty frontier: cannot dequeue node')
+

@@ -1,11 +1,11 @@
 from data_struct import Node, QueueFrontier
+import time
 from copy import deepcopy
 from helpers import *
 
 
 def solve(board):
     counter = 0
-    winning_node = None
 
     # make starting node with board
     start_board = board_from_array(board)
@@ -78,4 +78,7 @@ def solve(board):
     return solution
 
 if __name__ == '__main__':
+    t0 = time.time()
     solve(b40)
+    t1 = time.time()
+    print('\n', t1-t0, ' seconds')

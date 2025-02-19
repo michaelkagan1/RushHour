@@ -7,22 +7,6 @@ import numpy as np
 from copy import deepcopy
 from data_struct import Board, Car
 
-def test(arr):
-    board = board_from_array(arr)
-    print(board)
-
-    new_board = board.move_car(board.cars[2], -1)
-    print('\n',board)
-    # board.move_car(board.cars[4], -3)
-    # print('\n',board)
-    # board.move_car(board.cars[3], 3)
-    # print('\n',board)
-
-    # moves = board.empty_neighbors.copy()
-    # print(f'Befoe pop: {board.empty_neighbors}')
-    # moves.pop(board.cars[0])
-    # print(f'After pop: {board.empty_neighbors}')
-
 # Example board:
 b1 = [
  [0,0,2,0,3,3],
@@ -67,11 +51,3 @@ def board_from_array(array):
 # possible moves
 def possible_moves(board):
     return board.empty_neighbors 
-
-# resulting board
-
-# Winning position is one where
-# terminal board -> boolean
-
-if __name__ == '__main__':
-    test(b0)
