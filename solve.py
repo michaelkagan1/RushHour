@@ -1,3 +1,7 @@
+'''
+Contains search algorithm for finding shortest solution to RushHour traffic jam problem. Uses breadth first search with node-frontier implementation: uses infinite loop rather than recursion to keep exploring new nodes until solution arises.
+'''
+
 from data_struct import Node, QueueFrontier
 import time
 from copy import deepcopy
@@ -62,7 +66,7 @@ def solve(board):
 
     if winning_node == None:
         print('No solution')
-        return []
+        return None
 
     # backtrack to until node who's parent is None, return nodes actions
     else:
@@ -72,13 +76,14 @@ def solve(board):
             solution.append((node.action[0].name, node.action[1]))
             node = node.parent
 
+    # because nodes are parsed from last to first, list must be reversed
     solution.reverse()
     print('Solution converged', '\n', f'{counter} positions scanned', '\n')
-    print(solution)
     return solution
 
 if __name__ == '__main__':
     t0 = time.time()
-    solve(b40)
+    solution = solve(b40)
+    print(solution)
     t1 = time.time()
     print('\n', t1-t0, ' seconds')

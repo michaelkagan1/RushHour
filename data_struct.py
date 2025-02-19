@@ -1,3 +1,11 @@
+''''
+Four data structures featured in this algorithm. 
+
+Board: represents the board in the problems, containing a 2d array to display car locations, a list of car objects contained within, and a dict of empty neighbors which contains all possible moves that any cars can make, given their respective positions.
+Car: object containing a cars name, coordinates, whether it is the "main" car or not, and its orientation - vertical or horizontal
+Node: graph search object which contains a given board object as well as it's parent node and the move or action that was taken to achieve it from the parent state.
+Frontier: Primarily used to keep track of previously explored nodes/states and current nodes on the 'frontier'. Uses a set of byte strings representing explored arrays for optimized checking. 
+'''
 import numpy as np
 
 class Board():
@@ -134,12 +142,7 @@ class QueueFrontier():
     
     def explored(self, array):
         return array.tobytes() in self.memo
-        # for board in self.memo:
-        #     if np.array_equal(board, array):
-        #         return True
-        # return False
 
-    # add node to frontier to be searched. Add board to persistent 'memo' list
     def enqueue(self, node):
         self.frontier.append(node)
         self.memo.add(node.state.state.tobytes())  # node state is board object, board object state is 2D-array. Convert to bytes before adding for optimization

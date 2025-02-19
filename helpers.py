@@ -1,7 +1,9 @@
 '''
-Helper functions to check RushHour game board, find possible moves, return new boards, etc.
+A 2D array is used to represent the board at the simplest level. 0s are empty spaces. All other cars have non-zero integers. 
+Car #1 is always the "red" car, or the car that needs to escape to the right side of the board, always in the 3rd row. 
 
-Numbers represent cars. car #1 is always the car that needs to escape and is always in the 3rd row.
+This file contains 3 example boards for validating search algorithm. b1 and b2 are the first 2 boards in the actual RushHour game, and the easiest levels. 
+b40 is the last problem and the most difficult level. 
 '''
 import numpy as np
 from copy import deepcopy
@@ -47,7 +49,3 @@ def board_from_array(array):
         x = Car(coord, num, isMain=(num == 1))
         board.add_car(car=x)
     return board
-
-# possible moves
-def possible_moves(board):
-    return board.empty_neighbors 
