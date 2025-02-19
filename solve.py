@@ -7,6 +7,8 @@ import time
 from copy import deepcopy
 from helpers import *
 
+# states which board to solve. (from helpers.py)
+problem=b40
 
 def solve(board):
     counter = 0
@@ -83,7 +85,7 @@ def solve(board):
 
 if __name__ == '__main__':
     t0 = time.time()
-    solution = solve(b40)
+    solution = solve(problem)
     print(solution)
     t1 = time.time()
     print('\n', t1-t0, ' seconds')
