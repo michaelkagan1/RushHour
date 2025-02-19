@@ -1,7 +1,5 @@
 # Rush Hour Logic Game Solver
 
-![rush hour game picture](https://www.safariltd.com/cdn/shop/products/rush-hour-traffic-jam-logic-game-942258.webp?v=1698371033&width=1200)
-
 ### Background
 I got the idea to make this program when my step-son recieved the Rush Hour game for his birthday. I just got some practice in graph traversal and search algorithms from a recent class, so I wanted to see if I could find a reasonable solution.
 The code was written entirely by me. The concepts were learned in the CS50-AI class.
@@ -18,4 +16,5 @@ To run the game, clone the repo to your machine and simply execute solve.py
 The only dependency is numpy. 
 To select which board to solve, you can adjust the problem variable at the top of solve.py. The current options that I've written manually are b0, b1, and b40. Feel free to add more and set them equal to the problem variable. 
 These are list of lists objects, not numpy arrays, although it should work with either. 
-
+## 
+![rush hour game picture](https://www.safariltd.com/cdn/shop/products/rush-hour-traffic-jam-logic-game-942258.webp?v=1698371033&width=1200)
