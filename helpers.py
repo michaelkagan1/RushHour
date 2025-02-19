@@ -5,20 +5,26 @@ Numbers represent cars. car #1 is always the car that needs to escape and is alw
 '''
 import numpy as np
 from copy import deepcopy
-from data_struct import Board, Car, Node, QueueFrontier
+from data_struct import Board, Car
 
 def test(arr):
     board = board_from_array(arr)
     print(board)
-    board.move_car(board.cars[2], -1)
+
+    new_board = board.move_car(board.cars[2], -1)
     print('\n',board)
-    board.move_car(board.cars[4], -3)
-    print('\n',board)
-    board.move_car(board.cars[3], 3)
-    print('\n',board)
+    # board.move_car(board.cars[4], -3)
+    # print('\n',board)
+    # board.move_car(board.cars[3], 3)
+    # print('\n',board)
+
+    # moves = board.empty_neighbors.copy()
+    # print(f'Befoe pop: {board.empty_neighbors}')
+    # moves.pop(board.cars[0])
+    # print(f'After pop: {board.empty_neighbors}')
 
 # Example board:
-b0 = [
+b1 = [
  [0,0,2,0,3,3],
  [0,0,2,0,0,0],
  [1,1,2,0,0,0],
@@ -27,14 +33,22 @@ b0 = [
  [0,0,0,0,0,5]
  ]
 
-# Example board:
-b1 = [
+b2 = [
  [0,0,2,0,0,0],
- [0,0,2,0,0,0],
- [0,0,2,0,0,0],
- [0,0,0,0,0,0],
- [0,0,0,0,0,0],
+ [0,0,2,0,0,3],
+ [0,0,2,1,1,3],
+ [4,4,4,5,0,3],
+ [0,0,0,5,6,6],
  [0,0,0,0,0,0]
+ ]
+
+b40 = [
+ [2,3,3,4,4,4],
+ [2,0,5,5,6,0],
+ [1,1,7,0,6,0],
+ [8,8,7,9,9,10],
+ [0,11,11,12,0,10],
+ [13,13,13,12,0,10]
  ]
 
 #convert matrix to board object with numbered car objects
@@ -52,14 +66,7 @@ def board_from_array(array):
 
 # possible moves
 def possible_moves(board):
-    moves = dict()
-    for car in board.cars:
-        pass
-        
-
-
-
-# movable pieces
+    return board.empty_neighbors 
 
 # resulting board
 

@@ -3,11 +3,14 @@ import numpy as np
 class Board():
     '''
     board object which contains cars and represents a board in RushHour
+    state is the array representing the board
+    cars is a list of car objects
+    empty neighbors is a dict tying each car to the available steps it can take in it's dimension 
     '''
     def __init__(self):
         self.state = np.zeros([6,6])
         self.cars = []
-        self.spaces = dict()
+        self.empty_neighbors = dict()
         
     def add_car(self, car):
         self.cars.append(car)
@@ -20,24 +23,62 @@ class Board():
                 array[i][j] = car.name
         self.state = array
 
+        # update empty neighbors dict 
         for car in self.cars:
-            pass
-
+            # list of available spaces adjacent to car in cars orientation 
+            empty_neighbors = []
+            if car.orientation == 'vert':
+                # get first, last coordinate; check all spaces behind, and infront, until hitting border or taken space
+                j = car.coord[0][1]
+                first = min([i for i,j in car.coord])
+                i = -1
+                while first + i >= 0 and self.state[first+i][j]==0: # while not hitting border, and space is available
+                    empty_neighbors.append(i)
+                    i-=1
+                last = max([i for i,j in car.coord])
+                i = 1
+                while last + i < 6 and self.state[last+i][j]==0: # while not hitting border, and space is available
+                    empty_neighbors.append(i)
+                    i+=1
+            elif car.orientation == 'horiz':
+                # get first, last coordinate; check all spaces behind, and infront, until hitting border or taken space
+                i = car.coord[0][0]
+                first = min([j for i,j in car.coord])
+                j = -1
+                while first + j >= 0 and self.state[i][first+j]==0: # while not hitting border, and space is available
+                    empty_neighbors.append(j)
+                    j-=1
+                last = max([j for i,j in car.coord])
+                j = 1
+                while last + j < 6 and self.state[i][last+j]==0: # while not hitting border, and space is available
+                    empty_neighbors.append(j)
+                    j+=1
+            self.empty_neighbors[car] = empty_neighbors
 
     def move_car(self, car, action):
+        if action not in self.empty_neighbors[car]:
+            raise Exception(f'Invalid move by {car.name}: space taken')
+
         coords = car.coord
+
         if car.orientation == 'vert':
             new_coords = [(x+action, y) for x,y in coords]
         if car.orientation == 'horiz':
             new_coords = [(x,y+action) for x,y in coords]
 
-        if all([(self.state[i][j]==0) or (self.state[i][j]==car.name) for i,j in new_coords]):
-            car.coord = new_coords
-        else:
-            raise Exception(f'Invalid move by {car.name}: space taken')
+        car.coord = new_coords
         
         # update board state if any car moves
         self.update_board_state()
+    
+    def winning_state(self):
+        main_car = self.cars[0]
+        assert(main_car.name == 1)
+        farthest_y = max([j for i,j in main_car.coord])
+
+        row = self.state[2]         # main car always in 3rd row
+        row = row[farthest_y+1:]    # row values for index after main car to end of row
+        return not any(row)         # if any numbers not 0, it returns False
 
     def __str__(self):
         # print function for printing array (use zeros array, then populate with coords)
@@ -89,11 +130,18 @@ class QueueFrontier():
 
     def isEmpty(self):
         return len(self.frontier) == 0
+    
+    def explored(self, array):
+        for board in self.memo:
+            if np.all(board == array):
+                return True
+        
+        return False
 
     # add node to frontier to be searched. Add board to persistent 'memo' list
     def enqueue(self, node):
         self.frontier.append(node)
-        self.memo.append(node.state)
+        self.memo.append(node.state.state)  # node state is board object, board object state is 2D-array
 
     def dequeue(self):
         if not self.isEmpty():
