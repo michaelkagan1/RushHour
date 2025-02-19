@@ -19,6 +19,6 @@ To select which board to solve, you can adjust the problem variable at the top o
 These are list of lists objects, not numpy arrays, although it should work with either. 
 
 ### Solution
-The solution returns a list of tuples (representing moves) to be taken in chronological order. Each tuple  `(a,b)` represents a move `b` by a car `a`. For example, (4, -1) means move car #4 one step back. I use index notation for my steps, meaning a positive step is a step in the direcetion of increasing indices, and vice-versa. For horizontal cars, a positive step moves to the right. For vertical cars, a positive step is down. This was a convenient implementation to use with indices, but perhaps not best for readability. 
+The solution returns a list of tuples (representing moves) to be taken in chronological order. Each tuple  `(a,b)` represents a move `b` by a car `a`. For example, (4, -1) means move car #4 one step back. I use index notation for my steps, meaning a positive step is a step in the direcetion of increasing indices, and vice-versa. For horizontal cars, a positive step moves to the right. For vertical cars, a positive step is down. This was a convenient implementation to use with indices, but perhaps not best for readability. Cars are counted starting with #1 as the "main" car in row 3 and the remainders increasing in count from top left to bottom right. 
 ## 
 ![rush hour game picture](https://www.safariltd.com/cdn/shop/products/rush-hour-traffic-jam-logic-game-942258.webp?v=1698371033&width=1200)
