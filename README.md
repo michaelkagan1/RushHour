@@ -1,6 +1,6 @@
 # Rush Hour Logic Game Solver
 
-[https://www.safariltd.com/cdn/shop/products/rush-hour-traffic-jam-logic-game-942258.webp?v=1698371033&width=1200] 
+![rush hour game picture](https://www.safariltd.com/cdn/shop/products/rush-hour-traffic-jam-logic-game-942258.webp?v=1698371033&width=1200)
 
 ### Background
 I got the idea to make this program when my step-son recieved the Rush Hour game for his birthday. I just got some practice in graph traversal and search algorithms from a recent class, so I wanted to see if I could find a reasonable solution.
@@ -13,5 +13,9 @@ Two optimizations I made were:
 2 - changing the checker function from an "all" boolean comparison `np.all(array_a, array_b)` to a byte string search in the set `array.tobytes() in memo`.
 These changes made the script run about 99% faster. Before the changes, the most difficult problem took ~2 mins to solve, whereas afterwards, it took about 1.7 seconds. 
 
-
+### Run
+To run the game, clone the repo to your machine and simply execute solve.py
+The only dependency is numpy. 
+To select which board to solve, you can adjust the problem variable at the top of solve.py. The current options that I've written manually are b0, b1, and b40. Feel free to add more and set them equal to the problem variable. 
+These are list of lists objects, not numpy arrays, although it should work with either. 
 
